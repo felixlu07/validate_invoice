@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include validate_invoice *.css
+recursive-include validate_invoice *.csv
+recursive-include validate_invoice *.html
+recursive-include validate_invoice *.ico
+recursive-include validate_invoice *.js
+recursive-include validate_invoice *.json
+recursive-include validate_invoice *.md
+recursive-include validate_invoice *.png
+recursive-include validate_invoice *.py
+recursive-include validate_invoice *.svg
+recursive-include validate_invoice *.txt
+recursive-exclude validate_invoice *.pyc
