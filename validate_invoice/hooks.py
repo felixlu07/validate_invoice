@@ -10,6 +10,18 @@ app_license = "MIT"
 # Includes in <head>
 # ------------------
 
+# hooks.py
+doc_events = {
+    "Sales Invoice": {
+        "before_insert": "validate_invoice.validate_invoice.validate_invoice",
+        "validate": "validate_invoice.validate_invoice.validate_invoice",
+        "on_update": "validate_invoice.validate_invoice.validate_invoice",
+        "before_insert": "validate_invoice.validate_invoice.validate_customer_credit_and_outstanding",
+        "validate": "validate_invoice.validate_invoice.validate_customer_credit_and_outstanding",
+        "on_update": "validate_invoice.validate_invoice.validate_customer_credit_and_outstanding"                
+    }
+}
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/validate_invoice/css/validate_invoice.css"
 # app_include_js = "/assets/validate_invoice/js/validate_invoice.js"
@@ -101,6 +113,8 @@ app_license = "MIT"
 # Document Events
 # ---------------
 # Hook on document methods and events
+
+
 
 # doc_events = {
 #	"*": {
