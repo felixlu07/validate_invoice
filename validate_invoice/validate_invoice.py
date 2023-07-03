@@ -41,10 +41,7 @@ def validate_customer_credit_and_outstanding(doc, method):
     outstanding_amt = get_customer_outstanding(doc.customer, doc.company)
 
     # Check if the credit limit is not set
-    if not credit_limit:
-        # Show a message to the user
-        frappe.msgprint(_("No credit limit set for the customer. The invoice is allowed to be created without checking the balance."))
-    else:
+    if credit_limit:
         # Calculate balance
         balance = flt(credit_limit) - flt(outstanding_amt)
         
@@ -54,20 +51,3 @@ def validate_customer_credit_and_outstanding(doc, method):
         # Check if the invoice total is more than the outstanding balance
         if invoice_total >= balance:
             frappe.throw(_("Invoice total {0} is more than or equal to the available balance (Credit  Limit - Outstanding Balance) {1}").format(fmt_money(invoice_total, precision=2, currency=doc.currency), fmt_money(balance, precision=2, currency=doc.currency)))
-        
-        # Format numbers to a reasonable amount of decimal places (2 for currency)
-        credit_limit = fmt_money(credit_limit, precision=2, currency=doc.currency)
-        outstanding_amt = fmt_money(outstanding_amt, precision=2, currency=doc.currency)
-        balance = fmt_money(balance, precision=2, currency=doc.currency)
-        invoice_total = fmt_money(invoice_total, precision=2, currency=doc.currency)
-        
-        # Create the message
-        message = """
-        Credit Limit: {0}\n
-        Outstanding Amount: {1}\n
-        Outstanding Balance: {2}\n
-        Invoice Total: {3}
-        """.format(credit_limit, outstanding_amt, balance, invoice_total)
-
-        # Show the message to the user
-        frappe.msgprint(_(message))
